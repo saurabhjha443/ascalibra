@@ -15,11 +15,11 @@ while True:
             for contour in contours:
                 (x,y,z,h)=cv2.boundingRect(contour)
                 if cv2.contourArea(contour)<800:
-                    cv2.putText(frame1, "Status:{}".format("No Movement"), (10,30), cv2.FONT_HERSHEY_PLAIN, 3, (0, 0, 255), 2)
+                #    cv2.putText(frame1, "Status:{}".format("No Movement"), (10,30), cv2.FONT_HERSHEY_PLAIN, 3, (0, 0, 255), 2)
                     continue
                 cv2.rectangle(frame1,(x,y),(x+z,y+h),(0,255,0),2)
-                cv2.putText(frame1,"Status:{}".format("Movement"),(10,20),cv2.FONT_HERSHEY_PLAIN, 3 , (0,255,0),2)
-                cv2.putText(frame1,str(datetime.now()),(10,20),cv2.FONT_HERSHEY_PLAIN, 3 , (0,255,0),2)
+               # cv2.putText(frame1,"Status:{}".format("Movement"),(10,20),cv2.FONT_HERSHEY_PLAIN, 3 , (0,255,0),2)
+                cv2.putText(frame1,str(datetime.now()),(40,60),cv2.FONT_HERSHEY_PLAIN, 3 , (0,255,0),2)
                 cv2.imshow("Security",frame1)
                 frame1=frame2
                 ret,frame2=vs.read()
