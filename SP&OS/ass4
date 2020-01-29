@@ -1,0 +1,72 @@
+assignment no:4
+name:pragati suresh jadhav
+roll no:330
+
+
+lex file:
+%{
+#include<string.h>
+#include "y.tab.h"
+
+%}
+
+%%
+int|float|char {return dt;}
+public|static|private|protected {return kw;}
+[A-Za-z_][A-Za-z0-9]* {strcpy(yylval.v,yytext); return id;}
+"\t" {;}
+" " {;}
+. {return yytext[0];}
+%%
+
+
+yacc file:
+%{
+#include<stdio.h>
+%}
+%token dt kw id
+%union
+{
+char v[20];
+}
+
+%%
+X:Y dt Z';' {printf("correct syntax");}             /*x=statement y=keyword(public|static) z=identifier 
+                                               kw=keyword dt=datatype id=identifier*/
+Y:kw kw|kw|; 
+
+Z:Z ',' id|id;
+
+%%
+
+main()
+{
+yyparse();
+}
+yyerror()
+{
+printf("error occure");
+}
+
+
+
+output:
+int a;
+correct syntax
+void int a;
+error occure[root@localhost student]# ./a.out
+public static a;
+error occure[root@localhost student]# ./a.out
+public static int a;
+correct syntax
+static publlic int b;
+error occure[root@localhost student]# ./a.out
+static public int c;
+correct syntax
+[root@localhost student]# ./a.out
+float a;
+correct syntax
+[root@localhost student]# ./a.out
+float c;
+correct syntax
+

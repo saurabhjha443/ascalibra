@@ -1,0 +1,74 @@
+name:pragati suresh jadhav
+roll no:330
+assignment no:3
+
+lex file:
+%{
+#include "y.tab.h"
+extern int yylval;
+%}
+
+%%
+[0-9]+ {yylval=atoi(yytext); return digit;}
+\t {;}
+. {return yytext[0];}
+
+%%
+
+
+
+yacc file:
+%{
+#include<stdio.h>
+%}
+
+%token digit
+
+%%
+statement:exp {printf("=%d",$1);}
+exp:digit '+' digit {$$=$1+$3;}|digit '-' digit {$$=$1-$3;}|digit '*' digit {$$=$1*$3;}|digit '/' digit {$$=$1/$3;}|'(' digit ')' {$$=$2;}|digit {$$=$1;}
+
+%%
+
+main()
+{
+yyparse();
+}
+
+yyerror()
+{
+printf("error occur");
+}
+
+
+output:
+[root@localhost student]# yacc -d ass3.y
+[root@localhost student]# lex ass3.l
+[root@localhost student]# gcc lex.yy.c y.tab.c -ll
+[root@localhost student]# ./a.out
+100+10
+=110
+[1]+  Stopped                 ./a.out
+[root@localhost student]# ./a.out
+100-1
+=99
+[2]+  Stopped                 ./a.out
+[root@localhost student]# ./a.out
+90*2
+=180
+[3]+  Stopped                 ./a.out
+[root@localhost student]# ./a.out
+20/2
+=10
+[4]+  Stopped                 ./a.out
+[root@localhost student]# ./a.out
+(100)
+=100
+
+
+
+
+
+
+
+

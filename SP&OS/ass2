@@ -1,0 +1,111 @@
+assignment no:2
+name:pragati suresh jadhav
+roll no:330
+
+java file:
+public class addition{
+
+public static void main(string[] args)
+{
+int a=10.9;
+int b=2;
+int sum=a+b;
+system.out.println("sum :"+sum);
+}
+}
+
+
+lex file:
+%{
+#include<stdio.h>
+int n=0;
+%}
+
+%%
+
+void|static|string|class|system|out {n++;printf("\n %s is a keyword",yytext);}
+int|float|char|double {n++;printf("\n %s is a datatype",yytext);}
+println|main {n++;printf("\n %s is a function",yytext);}
+public|privte|protect {n++;printf("\n %s is a access specifier",yytext);}
+[0-9]+ {n++;printf("\n %s is int number",yytext);}
+[A-Za-z_][A-za-z0-9]* {n++;printf("\n %s is identifer",yytext);}
+"="|"+"|"-"|"*"|"/"|"<"|">" {n++;printf("\n %s is operator",yytext);}
+[(){},:;"] {n++;printf("\n %s is special symbols",yytext);}
+[0-9]*"."[0-9]+ {n++;printf("\n %s is float number",yytext);}
+" " {;}
+
+%%
+
+main()
+{
+yyin=fopen("ass2.java","r");
+yylex();
+printf("total number of tokens=%d\n",n);
+fclose(yyin);
+}
+
+
+output:
+(base) [student@localhost ~]$ su
+Password: 
+[root@localhost student]# lex ass2.l
+[root@localhost student]# gcc lex.yy.c -ll
+
+[root@localhost student]# ./a.out
+
+ public is a access specifier
+ class is a keyword
+ addition is identifer
+ { is special symbols
+
+
+ public is a access specifier
+ static is a keyword
+ void is a keyword
+ main is a function
+ ( is special symbols
+ string[] is identifer
+ args is identifer
+ ) is special symbols
+
+ { is special symbols
+
+ int is a datatype
+ a is identifer
+ = is operator
+ 10.9 is float number
+ ; is special symbols
+
+ int is a datatype
+ b is identifer
+ = is operator
+ 2 is int number
+ ; is special symbols
+
+ int is a datatype
+ sum is identifer
+ = is operator
+ a is identifer
+ + is operator
+ b is identifer
+ ; is special symbols
+
+ system is a keyword.
+ out is a keyword.
+ println is a function
+ ( is special symbols
+ " is special symbols
+ sum is identifer
+ : is special symbols
+ " is special symbols
+ + is operator
+ sum is identifer
+ ) is special symbols
+ ; is special symbols
+
+ } is special symbols
+
+ } is special symbols
+total number of tokens=44
+
+
